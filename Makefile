@@ -1,4 +1,4 @@
-.PHONY: default build test clean
+.PHONY: default build test clean init
 
 default: build
 
@@ -12,3 +12,10 @@ test:
 clean:
 	go clean --testcache
 	$(RM) -r build
+
+init:
+	@if [ -z "$(name)" ]; then \
+		echo "Usage: make init name=<module name>"; \
+		exit 1; \
+	fi
+	@./hack/init.sh $(name)
