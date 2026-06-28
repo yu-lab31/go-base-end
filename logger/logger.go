@@ -4,6 +4,7 @@ package logger
 import (
 	"fmt"
 	"go-base-end/operating_system"
+	"go-base-end/resource"
 	"io"
 	"os"
 
@@ -13,6 +14,9 @@ import (
 type Logger struct {
 	out *logrus.Logger
 }
+
+// singleton instance for current service
+var global *Logger
 
 // Default initializes default logger for service;
 //
@@ -73,7 +77,6 @@ func setJsonFormatter(logger *logrus.Logger) {
 	logger.SetFormatter(&logrus.JSONFormatter{
 		TimestampFormat: "2006/01/02 15:04:05.000",
 	})
-
 }
 
 func setTextFormatter(logger *logrus.Logger) {
@@ -82,5 +85,12 @@ func setTextFormatter(logger *logrus.Logger) {
 		DisableQuote:    true,
 		TimestampFormat: "2006/01/02 15:04:05.000",
 		FullTimestamp:   true,
+	})
+}
+
+func init() {
+	global = Default()
+	resource.Register[*Logger](func(opts ...resource.Option) any {
+		return global
 	})
 }

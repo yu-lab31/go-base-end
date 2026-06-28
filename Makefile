@@ -8,6 +8,7 @@ build:
 test:
 	go clean --testcache
 	go test ./test/logger/... -v
+	go test ./test/resource/... -v
 
 clean:
 	go clean --testcache
