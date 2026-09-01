@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = "go-base-end/service/id/api/v1;id_v1";
+
+package id.v1;
+
+service Id {
+    rpc NewId(IdReq) returns (IdResp) {}
+}
+
+enum AlgorithmType {
+    SNOWFLAKE = 0;
+    UUID = 1;
+}
+
+message IdReq {
+    AlgorithmType algo = 1;
+}
+
+message IdResp {
+  string id = 1;
+}

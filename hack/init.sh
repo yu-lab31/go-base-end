@@ -23,6 +23,10 @@ fi
 find . -type f -name "*.go" -exec sed -i.bak "s|${OLD_NAME}|${NEW_NAME}|g" {} +
 find . -type f -name "*.bak" -delete
 
+# modify module name in .proto files
+find . -type f -name "*.proto" -exec sed -i.bak "s|${OLD_NAME}|${NEW_NAME}|g" {} +
+find . -type f -name "*.bak" -delete
+
 echo "Resetting git history..."
 rm -rf .git
 git init
